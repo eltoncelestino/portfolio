@@ -10,7 +10,7 @@
 <meta property="og:description" content="Menos faltas, mais agendamentos e zero trabalho repetitivo no seu negócio.">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚙️%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
@@ -122,13 +122,29 @@ footer{padding:36px 0 90px;border-top:1px solid var(--line);color:var(--muted);f
 .fab::before{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid var(--wa);opacity:0;animation:fabPulse 2.8s cubic-bezier(.22,1,.36,1) infinite;pointer-events:none}
 @keyframes fabPulse{0%{transform:scale(1);opacity:.65}70%,100%{transform:scale(1.24);opacity:0}}
 .fab:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(31,168,85,.4)}
-dialog{border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--ink);max-width:560px;width:calc(100% - 32px);padding:28px}
+dialog{border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--ink);max-width:640px;width:calc(100% - 32px);padding:28px}
 dialog[open]{animation:modalIn .26s cubic-bezier(.22,1,.36,1)}
 dialog::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
 dialog[open]::backdrop{animation:fadeIn .22s ease}
 @keyframes modalIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .ph{height:150px;border-radius:12px;border:2px dashed var(--line);display:grid;place-items:center;color:var(--muted);margin:12px 0}
+.gallery{margin:14px 0}
+.gallery-main{width:100%;max-height:320px;object-fit:contain;background:var(--bg);border-radius:12px;border:1px solid var(--line);display:block;cursor:zoom-in;transition:border-color .2s ease}
+.gallery-main:hover{border-color:var(--brand)}
+.gallery-cap{font-size:.88rem;color:var(--muted);margin:6px 0 10px}
+.gallery-thumbs{display:flex;gap:8px;flex-wrap:wrap}
+.gallery-thumb{padding:0;width:76px;height:50px;border-radius:8px;border:2px solid var(--line);background:var(--bg);cursor:pointer;overflow:hidden;opacity:.72;transition:border-color .2s ease,opacity .2s ease}
+.gallery-thumb:hover,.gallery-thumb.active{opacity:1;border-color:var(--brand)}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+#lightbox{max-width:min(94vw,1200px);width:auto;padding:0;background:transparent;border:none;overflow:visible}
+#lightbox::backdrop{background:rgba(0,0,0,.84);backdrop-filter:blur(6px)}
+#lightbox figure{margin:0;position:relative;display:grid;justify-items:center;gap:10px}
+#lightbox img{max-width:min(92vw,1160px);max-height:84vh;object-fit:contain;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:block;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+#lightbox figcaption{color:var(--ink);font-size:.92rem;text-align:center;max-width:72ch;background:color-mix(in srgb,var(--bg) 88%,transparent);padding:6px 14px;border-radius:99px;border:1px solid var(--line)}
+.lb-close{position:absolute;top:-14px;right:-14px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:1.1rem;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:border-color .2s ease,transform .2s ease}
+.lb-close:hover{border-color:var(--brand);transform:scale(1.06)}
 [hidden]{display:none!important}
 /* Scroll reveal */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1),border-color .28s ease,box-shadow .28s ease,color .25s ease}
@@ -258,6 +274,7 @@ dialog[open]::backdrop{animation:fadeIn .22s ease}
 <a class="fab wa" href="#" aria-label="Falar no WhatsApp">WhatsApp</a>
 
 <dialog id="modal" aria-labelledby="m-t"></dialog>
+<dialog id="lightbox" aria-label="Imagem ampliada"></dialog>
 
 <script>
 /* ============ CONTEÚDO EDITÁVEL ============ */
@@ -280,9 +297,46 @@ const CONFIG = {
   ],
   /* Para adicionar um projeto, copie um bloco abaixo */
   projetos: [
-    {t:"Assistente de agendamento para clínica odontológica", r:"WhatsApp + planilha + lembretes", d:"Clínicas perdem horários porque confirmações são manuais e a recepção vive sobrecarregada.", s:"Um assistente no WhatsApp oferece horários, registra o agendamento em planilha e envia lembretes automáticos.", tec:"n8n, WhatsApp API, Google Sheets, IA", res:"Redução de faltas e recepção com mais tempo livre.", img:"", link:""},
-    {t:"Matrícula e certificado automático para curso profissionalizante", r:"Formulário + documentos + certificado", d:"Matrícula, controle de frequência e emissão de certificado consomem horas da secretaria.", s:"Formulário de matrícula, avisos de pagamento e certificado gerado e enviado ao concluir o curso.", tec:"Formulários, n8n, Google Workspace", res:"Secretaria com menos tarefas manuais e processo rastreável.", img:"", link:""},
-    {t:"Painel de indicadores de atendimento e vendas", r:"Power BI ou Looker Studio", d:"O dono não sabe quantos contatos viram clientes nem onde perde oportunidades.", s:"Painel único com contatos, agendamentos, vendas e origem dos clientes.", tec:"Power BI, SQL, planilhas", res:"Visão clara do funil para decidir melhor.", img:"", link:""}
+    {
+      t:"Aurea Estética Avançada — Captação de clientes no piloto automático com foco em conversão e LGPD",
+      r:"Clínicas de estética · Conversão em avaliações e atendimento imediato",
+      d:"Clínicas de estética investem em divulgação, mas perdem pacientes interessadas quando o atendimento demora para responder ou quando o site não transmite confiança e profissionalismo. Além disso, o controle manual de contatos fora de um fluxo estruturado gera retrabalho para a recepção e riscos de não conformidade com a LGPD.",
+      s:"Foi desenvolvida uma página de apresentação editorial de alta conversão, pensada para transformar visitantes em avaliações agendadas. O sistema conta com botões de contato direto no WhatsApp que já informam o interesse da cliente, formulário inteligente com rastreio de origem de campanha, bloqueio automático contra spam e consentimento explícito pela LGPD. Assim que o formulário é enviado, a automação dispara o atendimento imediato via WhatsApp Cloud API.",
+      tec:"Next.js 14, React 18, TypeScript, Tailwind CSS, Zod, Supabase e Automação n8n com WhatsApp Cloud API",
+      res:"Resposta imediata às interessadas sem depender de digitação manual, redução de leads perdidos por demora no atendimento e captação organizada com segurança jurídica (LGPD).",
+      imgs:[
+        {src:"img/aurea-estetica-hero.jpg", alt:"Hero editorial da Aurea Estética Avançada com avaliação gratuita e botão de WhatsApp"}
+      ],
+      link:"https://github.com/eltoncelestino/aurea-estetica"
+    },
+    {
+      t:"Ceará Prime Imóveis S.A. — Atendimento instantâneo com IA e controle total do funil imobiliário",
+      r:"Imobiliárias de alto padrão · Triagem em menos de 1 minuto e CRM com SLA",
+      d:"No mercado imobiliário de alto padrão, poucos minutos de espera fazem o cliente fechar com a concorrência. Sem um atendimento inicial imediato e sem visibilidade clara do tempo de resposta da equipe, corretores perdem oportunidades valiosas e a gestão não consegue acompanhar em que etapa cada negociação está travada.",
+      s:"Plataforma completa que une vitrine digital e catálogo filtrável por bairros a um Concierge de Inteligência Artificial capaz de atender o cliente no site e no WhatsApp em menos de 1 minuto. Todos os contatos entram automaticamente em um CRM privado com quadro Kanban visual, cronômetro de SLA ao vivo (com alerta para a gerência em caso de atraso) e conformidade total com a LGPD.",
+      tec:"Next.js 15, React 18, TypeScript, Tailwind CSS, Framer Motion, PostgreSQL, Prisma ORM, Zod, n8n, Evolution API (WhatsApp), OpenAI (gpt-4o-mini) e Telegram Bot API",
+      res:"Triagem de novos leads em segundos, monitoramento contínuo de SLA de 2 minutos para a equipe comercial e centralização de 100% do funil de vendas em um único painel.",
+      imgs:[
+        {src:"img/ceara-prime-hero.jpg", alt:"Landing page pública da Ceará Prime Imóveis S.A. com busca por bairro em Fortaleza"},
+        {src:"img/ceara-prime-crm.jpg", alt:"Private CRM com quadro Kanban, SLA ao vivo e filtros por bairro"},
+        {src:"img/ceara-prime-concierge.png", alt:"Concierge IA para triagem instantânea de leads"}
+      ],
+      link:"https://github.com/eltoncelestino/ceara-prime-imobiliaria"
+    },
+    {
+      t:"Brasa Viva Burger & Grill — Cardápio digital próprio, pedido na mesa e cozinha sincronizada em tempo real",
+      r:"Restaurantes e delivery · Venda direta sem taxas de marketplace",
+      d:"Restaurantes e hamburguerias perdem margem de lucro com taxas elevadas de aplicativos de terceiros e enfrentam falhas operacionais quando pedidos de delivery, retirada e salão são anotados manualmente — gerando atrasos, erros de montagem e filas no caixa.",
+      s:"Plataforma própria de cardápio digital e pedidos online para delivery, retirada e atendimento na mesa via QR Code. O cliente personaliza o lanche, calcula a entrega automaticamente por bairro e paga via Pix com confirmação instantânea. Na operação, os pedidos chegam em tempo real ao quadro Kanban da cozinha com alerta sonoro, impressão de comanda térmica 80mm, gestão de cardápio e painel de faturamento — com validação segura de preços direto no servidor.",
+      tec:"Next.js 15, React 19, TypeScript, Tailwind CSS v4, Prisma ORM (SQLite/PostgreSQL), Socket.IO (tempo real), Auth.js v5, Zustand, Zod, Recharts e Vitest",
+      res:"Eliminação de erros manuais entre cliente e cozinha, fluxo sincronizado em tempo real do pagamento Pix ao preparo e canal próprio de vendas sem comissão por pedido.",
+      imgs:[
+        {src:"img/brasa-viva-cardapio.jpg", alt:"Cardápio público desktop do Brasa Viva Burger & Grill"},
+        {src:"img/brasa-viva-mesa.jpg", alt:"Cardápio mobile-first na mesa via QR Code"},
+        {src:"img/brasa-viva-admin.png", alt:"Login administrativo do painel de gestão e cozinha"}
+      ],
+      link:""
+    }
   ],
   passos: [
     ["Conversa de diagnóstico","20 minutos, gratuita, para entender sua rotina."],
@@ -331,16 +385,56 @@ const burger = document.querySelector(".burger"), menu = $("#menu");
 burger.onclick = () => { const o = menu.classList.toggle("open"); burger.setAttribute("aria-expanded", o); };
 menu.onclick = e => { if (e.target.tagName === "A") { menu.classList.remove("open"); burger.setAttribute("aria-expanded", false); } };
 
-/* Modal de projetos e política de privacidade */
-const modal = $("#modal");
-function abrir(html) { modal.innerHTML = html + '<p><button class="btn btn-ghost" id="fechar">Fechar</button></p>'; modal.showModal(); $("#fechar").onclick = () => modal.close(); }
+/* Modal de projetos, lightbox de imagem e política de privacidade */
+const modal = $("#modal"), lightbox = $("#lightbox");
+function fecharAoClicarFora(dlg) {
+  dlg.addEventListener("click", e => {
+    if (e.target !== dlg) return;
+    const r = dlg.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+  });
+}
+fecharAoClicarFora(modal);
+fecharAoClicarFora(lightbox);
+
+function abrirLightbox(src, alt) {
+  lightbox.innerHTML = `<figure><button type="button" class="lb-close" id="lb-close" aria-label="Fechar imagem">✕</button><img src="${esc(src)}" alt="${esc(alt)}"><figcaption>${esc(alt)}</figcaption></figure>`;
+  lightbox.showModal();
+  $("#lb-close").onclick = () => lightbox.close();
+}
+
+function abrir(html, extraAction = "") {
+  modal.innerHTML = html + `<div class="modal-actions">${extraAction}<button class="btn btn-ghost" id="fechar" type="button">Fechar</button></div>`;
+  modal.showModal();
+  $("#fechar").onclick = () => modal.close();
+}
+function renderGaleria(p) {
+  const lista = Array.isArray(p.imgs) && p.imgs.length ? p.imgs : (p.img ? [{src:p.img, alt:"Imagem do projeto"}] : []);
+  if (!lista.length) return `<div class="ph">Imagem ou GIF do projeto</div>`;
+  const thumbs = lista.length > 1
+    ? `<div class="gallery-thumbs">${lista.map((im, idx) => `<button type="button" class="gallery-thumb${idx === 0 ? " active" : ""}" data-src="${esc(im.src)}" data-alt="${esc(im.alt)}" aria-label="Ver tela ${idx + 1}: ${esc(im.alt)}"><img src="${esc(im.src)}" alt=""></button>`).join("")}</div>`
+    : "";
+  return `<div class="gallery"><img class="gallery-main" id="gal-main" src="${esc(lista[0].src)}" alt="${esc(lista[0].alt)}" title="Clique para ampliar"><p class="gallery-cap" id="gal-cap">${esc(lista[0].alt)}</p>${thumbs}</div>`;
+}
 $("#projetos-grid").onclick = e => {
   const b = e.target.closest("button"); if (!b) return;
   const p = CONFIG.projetos[b.dataset.i];
+  const linkBtn = p.link ? `<a class="btn btn-main" href="${esc(p.link)}" target="_blank" rel="noopener">Ver no GitHub</a>` : "";
   abrir(`<span class="tag">Projeto demonstrativo</span><h2 id="m-t" style="font-size:1.5rem">${esc(p.t)}</h2>` +
-    (p.img ? `<img src="${esc(p.img)}" alt="Imagem do projeto" style="max-width:100%;border-radius:12px">` : `<div class="ph">Imagem ou GIF do projeto</div>`) +
-    `<p><strong>Desafio:</strong> ${esc(p.d)}</p><p><strong>Solução:</strong> ${esc(p.s)}</p><p><strong>Tecnologias:</strong> ${esc(p.tec)}</p><p><strong>Resultado esperado:</strong> ${esc(p.res)}</p>` +
-    (p.link ? `<p><a href="${esc(p.link)}" target="_blank" rel="noopener">Ver demonstração</a></p>` : ""));
+    renderGaleria(p) +
+    `<p><strong>O Desafio de Negócio:</strong> ${esc(p.d)}</p><p><strong>A Solução Entregue:</strong> ${esc(p.s)}</p><p><strong>Pilares Tecnológicos:</strong> ${esc(p.tec)}</p><p><strong>O Impacto / Resultado Prático:</strong> ${esc(p.res)}</p>`, linkBtn);
+  const mainImg = $("#gal-main");
+  if (mainImg) mainImg.onclick = () => abrirLightbox(mainImg.src, mainImg.alt);
+  const thumbs = modal.querySelector(".gallery-thumbs");
+  if (thumbs) {
+    thumbs.onclick = ev => {
+      const tb = ev.target.closest(".gallery-thumb"); if (!tb) return;
+      mainImg.src = tb.dataset.src;
+      mainImg.alt = tb.dataset.alt;
+      $("#gal-cap").textContent = tb.dataset.alt;
+      thumbs.querySelectorAll(".gallery-thumb").forEach(el => el.classList.toggle("active", el === tb));
+    };
+  }
 };
 $("#priv").onclick = e => { e.preventDefault(); abrir(`<h2 id="m-t" style="font-size:1.5rem">Política de privacidade</h2><p>Os dados informados no formulário (nome, WhatsApp, tipo de negócio e mensagem) são usados apenas para responder ao seu contato e não são compartilhados com terceiros.</p><p>Você pode pedir a exclusão dos seus dados a qualquer momento pelo e-mail ${esc(CONFIG.email)}, conforme a LGPD.</p>`); };
 

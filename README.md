@@ -58,9 +58,17 @@ portfolio/
 ├── index.html          # Estrutura, estilos, animações, conteúdo (CONFIG) e scripts
 ├── README.md           # Documentação do projeto
 └── img/
-    ├── LEIA-ME.txt     # Instruções para troca de imagens
-    ├── perfil.jpg      # Foto de perfil exibida na seção Sobre mim
-    └── preview-hero.png# Captura da tela inicial para documentação
+    ├── LEIA-ME.txt                 # Instruções para troca de imagens
+    ├── favicon.svg                 # Favicon SVG com monograma EC
+    ├── perfil.jpg                  # Foto de perfil exibida na seção Sobre mim
+    ├── preview-hero.png            # Captura da tela inicial para documentação
+    ├── aurea-estetica-hero.jpg     # Prévia do projeto Aurea Estética Avançada
+    ├── ceara-prime-hero.jpg        # Prévia do projeto Ceará Prime Imóveis S.A.
+    ├── ceara-prime-crm.jpg         # Prévia do Private CRM (Ceará Prime)
+    ├── ceara-prime-concierge.png   # Prévia do Concierge IA (Ceará Prime)
+    ├── brasa-viva-cardapio.jpg     # Prévia do cardápio desktop (Brasa Viva)
+    ├── brasa-viva-mesa.jpg         # Prévia do cardápio na mesa (Brasa Viva)
+    └── brasa-viva-admin.png        # Prévia do login administrativo (Brasa Viva)
 ```
 
 ---
