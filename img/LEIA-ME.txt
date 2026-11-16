@@ -1,0 +1,7 @@
+Coloque sua foto de perfil nesta pasta com o nome:
+
+  perfil.jpg
+
+(Se preferir usar .png ou .webp, atualize o atributo src="img/perfil.jpg" na seção #sobre do arquivo index.html.)
+
+Você também pode colocar imagens ou GIFs dos projetos aqui (ex.: img/projeto-clinica.png) e referenciá-las no campo `img` de CONFIG.projetos no index.html.
