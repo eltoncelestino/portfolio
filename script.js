@@ -3,10 +3,17 @@
    Edite aqui telefone, e-mail, projetos, depoimentos e perguntas frequentes.
    ========================================================================== */
 const CONFIG = {
-  telefone: "", // ex.: "5585999999999" (vazio direciona para o formulário de contato)
-  telefoneExibido: "", // ex.: "(85) 99999-9999"
+  telefone: "5585988769260",
+  telefoneExibido: "(85) 98876-9260",
   email: "eltongf2014@gmail.com",
-  mensagemWhats: "Olá, Elton! Vim pelo seu site e quero saber como automatizar [meu negócio].",
+  mensagensWhats: {
+    geral: "Olá, Elton! Vim pelo seu site e queria entender como funciona a automação de WhatsApp e processos para pequenos negócios.\nHoje tenho muito trabalho manual no atendimento e queria ver se faz sentido aplicar aqui.",
+    diagnostico: "Olá, Elton! Vim pelo seu site e quero agendar o diagnóstico gratuito de 20 minutos.\nQuero ver o que dá para automatizar na rotina aqui do negócio, sem compromisso. Quais horários você tem disponíveis?",
+    clinica: "Olá, Elton! Vi no seu site as automações para clínicas e queria entender como funciona na prática.\nQuero melhorar o agendamento pelo WhatsApp e diminuir as faltas dos pacientes com lembretes automáticos.",
+    curso: "Olá, Elton! Vi no seu site a automação para cursos e escolas e queria entender como funciona.\nQuero responder mais rápido quem chama no WhatsApp pedindo informações e reduzir o trabalho repetitivo da secretaria.",
+    imobiliaria: "Olá, Elton! Vi no seu site a automação para imobiliárias e queria entender como funciona na prática.\nQuero responder os interessados mais rápido no WhatsApp e organizar melhor o acompanhamento dos contatos.",
+    outros: "Olá, Elton! Vim pelo seu site e queria ver se dá para automatizar processos e atendimento no meu negócio.\nHoje perdemos bastante tempo com planilhas e mensagens repetidas, e queria entender o que dá para melhorar."
+  },
   formEndpoint: "", // URL do Formspree ou webhook n8n; vazio = WhatsApp ou e-mail
 
   // Quando tiver depoimentos reais, preencha abaixo e mude para `mostrarDepoimentos: true`.
@@ -30,27 +37,31 @@ const CONFIG = {
       t: "Atendimento e agendamento no WhatsApp",
       o: "Um assistente responde, marca horários e envia lembretes, com IA se você quiser.",
       g: "Menos faltas e clientes atendidos na hora.",
-      p: "Clínicas, cursos e imobiliárias."
+      p: "Clínicas, cursos e imobiliárias.",
+      msgWhats: "Olá, Elton! Vi no seu site o serviço de atendimento e agendamento no WhatsApp e queria entender como funciona.\nQuero responder mais rápido os clientes e diminuir faltas com lembretes automáticos."
     },
     {
       icon: "workflow",
       t: "Processos internos digitais",
       o: "Formulários, aprovações, avisos e cadastros funcionando sozinhos.",
       g: "Fim do vai e vem de planilhas e mensagens.",
-      p: "Escritórios e equipes administrativas."
+      p: "Escritórios e equipes administrativas.",
+      msgWhats: "Olá, Elton! Vi no seu site a parte de processos internos digitais e queria entender como funciona.\nHoje perdemos bastante tempo com planilhas e tarefas manuais, e queria ver o que dá para automatizar."
     },
     {
       icon: "dashboard",
       t: "Painéis de indicadores",
       o: "Um painel com vendas, atendimento e financeiro, atualizado automaticamente.",
       g: "Decisões com base em números reais.",
-      p: "Donos que querem enxergar o negócio."
+      p: "Donos que querem enxergar o negócio.",
+      msgWhats: "Olá, Elton! Vi no seu site a criação de painéis de indicadores e queria entender como funciona na prática.\nQuero enxergar melhor os números de vendas e atendimento do meu negócio sem depender de planilhas manuais."
     }
   ],
 
   /* Para adicionar um projeto, copie um bloco abaixo */
   projetos: [
     {
+      waKey: "clinica",
       nome: "Aurea Estética Avançada",
       subtitulo: "Captação de clientes no piloto automático com foco em conversão e LGPD",
       t: "Aurea Estética Avançada — Captação de clientes no piloto automático com foco em conversão e LGPD",
@@ -75,6 +86,7 @@ const CONFIG = {
       link: "https://github.com/eltoncelestino/aurea-estetica"
     },
     {
+      waKey: "imobiliaria",
       nome: "Ceará Prime Imóveis S.A.",
       subtitulo: "Atendimento instantâneo com IA e controle total do funil imobiliário",
       t: "Ceará Prime Imóveis S.A. — Atendimento instantâneo com IA e controle total do funil imobiliário",
@@ -113,6 +125,7 @@ const CONFIG = {
       link: "https://github.com/eltoncelestino/ceara-prime-imobiliaria"
     },
     {
+      waKey: "outros",
       nome: "Brasa Viva Burger & Grill",
       subtitulo: "Cardápio digital próprio, pedido na mesa e cozinha sincronizada em tempo real",
       t: "Brasa Viva Burger & Grill — Cardápio digital próprio, pedido na mesa e cozinha sincronizada em tempo real",
@@ -210,7 +223,7 @@ const ICONS = {
    ========================================================================== */
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const waUrl = (m = CONFIG.mensagemWhats) =>
+const waUrl = (m = CONFIG.mensagensWhats.geral) =>
   CONFIG.telefone ? `https://wa.me/${CONFIG.telefone}?text=${encodeURIComponent(m)}` : "#contato";
 
 function pictureTag(im, cls = "", lazy = true) {
@@ -222,7 +235,8 @@ function pictureTag(im, cls = "", lazy = true) {
 
 /* Links de contato & rodapé */
 document.querySelectorAll(".wa").forEach(a => {
-  a.href = waUrl();
+  const key = a.dataset.wa || "geral";
+  a.href = waUrl(CONFIG.mensagensWhats[key] || CONFIG.mensagensWhats.geral);
   if (CONFIG.telefone) {
     a.target = "_blank";
     a.rel = "noopener";
@@ -280,7 +294,7 @@ $("#problemas-grid").innerHTML = CONFIG.problemas
 const waAttrs = CONFIG.telefone ? 'target="_blank" rel="noopener"' : "";
 $("#servicos-grid").innerHTML = CONFIG.servicos
   .map(s => {
-    const href = waUrl("Olá, Elton! Quero uma proposta de: " + s.t);
+    const href = waUrl(s.msgWhats || CONFIG.mensagensWhats.geral);
     if (s.featured) {
       return `
         <article class="card service-card is-featured">
@@ -390,7 +404,7 @@ const slidesHtml = CONFIG.projetos
             <button type="button" class="btn btn-cta" data-project="${i}">
               Ver detalhes ${ICONS.arrowRight}
             </button>
-            <a class="btn btn-ghost" ${waAttrs} href="${waUrl("Olá, Elton! Vi o projeto " + p.nome + " e quero algo parecido para meu negócio.")}">
+            <a class="btn btn-ghost" ${waAttrs} href="${waUrl(CONFIG.mensagensWhats[p.waKey] || CONFIG.mensagensWhats.outros)}">
               Quero algo assim
             </a>
           </div>
@@ -737,7 +751,7 @@ $("#projetos-grid").addEventListener("click", e => {
   const p = CONFIG.projetos[Number(btn.dataset.project)];
   if (!p) return;
 
-  const waBtn = `<a class="btn btn-cta" ${waAttrs} href="${waUrl("Olá, Elton! Vi o projeto " + p.nome + " e quero algo parecido para meu negócio.")}">Quero algo assim</a>`;
+  const waBtn = `<a class="btn btn-cta" ${waAttrs} href="${waUrl(CONFIG.mensagensWhats[p.waKey] || CONFIG.mensagensWhats.outros)}">Quero algo assim</a>`;
   const ghBtn = p.link ? `<a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Ver no GitHub</a>` : "";
 
   abrirModal({
