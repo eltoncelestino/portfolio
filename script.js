@@ -870,8 +870,9 @@ form.addEventListener("submit", async e => {
     const txt = `Olá, Elton! Sou ${d.nome} (${d.negocio}). Quero melhorar: ${d.msg || "ainda a definir"}. Meu WhatsApp: ${d.whatsapp}`;
     st.className = "form-status is-success";
     if (CONFIG.telefone) {
-      window.open(waUrl(txt), "_blank", "noopener");
-      st.textContent = "Abrindo o WhatsApp com sua mensagem pronta. Se preferir, pode responder por lá.";
+      const url = waUrl(txt);
+      window.open(url, "_blank", "noopener");
+      st.innerHTML = `Abrindo o WhatsApp com sua mensagem pronta. <a class="status-link" href="${esc(url)}" target="_blank" rel="noopener">Não abriu? Clique aqui para enviar no WhatsApp</a>`;
     } else {
       window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Contato pelo portfólio – " + d.nome)}&body=${encodeURIComponent(txt)}`;
       st.textContent = "Abrindo seu aplicativo de e-mail para enviar a mensagem.";
