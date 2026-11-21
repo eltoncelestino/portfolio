@@ -1773,10 +1773,21 @@ section {
 }
 
 /* ===== FAQ (Acordeão acessível) ===== */
+.faq-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.faq-layout .sec-head {
+  margin-bottom: 0;
+}
+
 .faq-list {
   display: grid;
   gap: var(--space-3);
-  max-width: 780px;
+  width: 100%;
 }
 
 .faq-item {
@@ -2557,6 +2568,16 @@ dialog::backdrop {
 
   .grid-dep {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .faq-layout {
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: var(--space-7);
+  }
+
+  .faq-layout .sec-head {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
   }
 
   /* Sticky Horizontal Scroll no Desktop (>= 980px) */
